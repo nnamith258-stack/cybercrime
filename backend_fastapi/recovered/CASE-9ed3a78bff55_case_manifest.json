@@ -1,0 +1,42 @@
+{
+  "case_id": "CASE-9ed3a78bff55",
+  "source_sha256": "e7ae90ddb9adf33df7c84423fb8ef21d1920683136398656bfdec714c2864152",
+  "source_size": 6358,
+  "scan_timestamp": "2026-09-25T18:33:41.209908+00:00",
+  "tools_used": [
+    "internal_signature_carver"
+  ],
+  "artifacts": [
+    {
+      "id": "CASE-9ed3a78bff55-ART-4acbb4644935",
+      "original_name": null,
+      "recovered_name": "recovered_1.jpeg",
+      "file_type": "JPEG",
+      "source_offsets": [
+        [
+          0,
+          6358
+        ]
+      ],
+      "expected_size": 6358,
+      "recovered_size": 6358,
+      "recovery_percentage": 100.0,
+      "status": "RECOVERED",
+      "sha256": "e7ae90ddb9adf33df7c84423fb8ef21d1920683136398656bfdec714c2864152",
+      "validation": {
+        "valid": true,
+        "format": "JPEG",
+        "size_bytes": 6358,
+        "sha256": "e7ae90ddb9adf33df7c84423fb8ef21d1920683136398656bfdec714c2864152",
+        "integrity_score": 100.0,
+        "recovery_percentage": null,
+        "errors": [],
+        "warnings": []
+      },
+      "fragment_count": 1,
+      "ml_confidence": null,
+      "forensic_confidence": 1.0,
+      "download_url": "/api/recovery/download/CASE-9ed3a78bff55-ART-4acbb4644935"
+    }
+  ]
+}

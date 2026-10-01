@@ -1,0 +1,77 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Validation helpers
+    function isValidUserProfile(data) {
+      return data.keys().hasAll(['id', 'email', 'role']) &&
+        data.id is string && data.id.size() <= 128 && data.id == request.auth.uid &&
+        data.email is string && data.email.size() <= 256 &&
+        data.role in ['analyst', 'guest', 'admin'];
+    }
+
+    function isValidEvidenceCase(data) {
+      return data.keys().hasAll(['id', 'userId', 'caseName', 'evidenceSha256']) &&
+        data.id is string && data.id.size() <= 128 &&
+        data.userId is string && data.userId.size() <= 128 && data.userId == request.auth.uid &&
+        data.caseName is string && data.caseName.size() <= 128 &&
+        data.evidenceSha256 is string && data.evidenceSha256.size() <= 64;
+    }
+
+    function isValidRestorationArtifact(data) {
+      return data.keys().hasAll(['id', 'caseId', 'userId', 'method', 'originalEvidenceSha256', 'outputSha256']) &&
+        data.id is string && data.id.size() <= 128 &&
+        data.caseId is string && data.caseId.size() <= 128 &&
+        data.userId is string && data.userId.size() <= 128 && data.userId == request.auth.uid &&
+        data.method is string && data.method.size() <= 64 &&
+        data.originalEvidenceSha256 is string && data.originalEvidenceSha256.size() <= 64 &&
+        data.outputSha256 is string && data.outputSha256.size() <= 64;
+    }
+
+    // User profiles
+    match /users/{userId} {
+      allow get: if isSignedIn() && request.auth.uid == userId;
+      allow create, update: if isSignedIn() && request.auth.uid == userId && isValidUserProfile(incoming());
+      allow delete: if false;
+    }
+
+    // Evidence Cases
+    match /cases/{caseId} {
+      allow get: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() && isValidId(caseId) && incoming().userId == request.auth.uid && isValidEvidenceCase(incoming());
+      allow update: if isSignedIn() && isValidId(caseId) && existing().userId == request.auth.uid && incoming().userId == request.auth.uid && isValidEvidenceCase(incoming());
+      allow delete: if isSignedIn() && isValidId(caseId) && existing().userId == request.auth.uid;
+
+      // Restoration artifacts subcollection
+      match /restorations/{restorationId} {
+        allow get: if isSignedIn() && resource.data.userId == request.auth.uid;
+        allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+        allow create: if isSignedIn() && isValidId(restorationId) && incoming().userId == request.auth.uid && isValidRestorationArtifact(incoming());
+        allow delete: if isSignedIn() && isValidId(restorationId) && existing().userId == request.auth.uid;
+      }
+    }
+  }
+}

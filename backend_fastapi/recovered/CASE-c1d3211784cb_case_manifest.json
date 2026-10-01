@@ -1,0 +1,180 @@
+{
+  "case_id": "CASE-c1d3211784cb",
+  "source_name": "ReCoveryAI deterministic corrupted JPEG sample",
+  "source_sha256": "5428819d16c5e0cafe20e637ab2d86b4c914ee7698c362b010e03063bcc4cfbb",
+  "source_size": 4768,
+  "scan_timestamp": "2026-09-25T18:37:57.591264+00:00",
+  "sector_size": 512,
+  "tools_used": [
+    "signature_analysis",
+    "structural_recovery",
+    "format_validation",
+    "sha256"
+  ],
+  "fragments": [],
+  "artifacts": [
+    {
+      "id": "CASE-c1d3211784cb-ART-9f29ececd757",
+      "original_name": "corrupted.jpg",
+      "recovered_name": "recovered_corrupted.jpg",
+      "file_type": "JPEG",
+      "source_offsets": [
+        [
+          0,
+          4768
+        ]
+      ],
+      "expected_size": null,
+      "recovered_size": 4770,
+      "recovery_percentage": null,
+      "status": "RECOVERED",
+      "sha256": "75de92c89ab9d374ca21eddab12bab9a53f99c8460fac70078d44e4f64b69de0",
+      "validation": {
+        "valid": true,
+        "integrity_score": 50.0,
+        "errors": [
+          "Missing JPEG EOI (FF D9)",
+          "JPEG decoding failed: image file is truncated (19 bytes not processed)"
+        ],
+        "warnings": [
+          "Appended missing EOI (FF D9) after surviving scan data.",
+          "Damage location could not be determined precisely.",
+          "Visual restoration skipped (no evidence-derived mask)."
+        ]
+      },
+      "fragment_count": 0,
+      "ml_confidence": null,
+      "forensic_confidence": 0.6333,
+      "download_url": "/api/recovery/download/CASE-c1d3211784cb-ART-9f29ececd757"
+    }
+  ],
+  "forensic_summary": {
+    "executive_overview": "The deterministic sample was truncated before the JPEG EOI marker. The pipeline preserved 4768 source bytes, appended 2 validated repair byte(s), and produced a VALID output.",
+    "direct_facts": [
+      "Source SHA-256: 5428819d16c5e0cafe20e637ab2d86b4c914ee7698c362b010e03063bcc4cfbb",
+      "Recovered output SHA-256: 75de92c89ab9d374ca21eddab12bab9a53f99c8460fac70078d44e4f64b69de0",
+      "Format validation: VALID"
+    ],
+    "heuristic_findings": [
+      "Appended missing EOI (FF D9) after surviving scan data.",
+      "Damage location could not be determined precisely.",
+      "Visual restoration skipped (no evidence-derived mask)."
+    ],
+    "investigator_recommendations": [
+      "Retain the original sample and compare both SHA-256 hashes."
+    ]
+  },
+  "file_analysis": {
+    "fileType": "JPEG",
+    "mimeType": "image/jpeg",
+    "magicBytes": "FF D8 FF E0 00 10 4A 46 49 46 00 01 01 00 00 01",
+    "fileSize": 4768,
+    "sha256": "5428819d16c5e0cafe20e637ab2d86b4c914ee7698c362b010e03063bcc4cfbb",
+    "md5": "4da50cd591e663d644245f7273584370",
+    "status": "CORRUPTED",
+    "evidenceState": "PARTIAL",
+    "damageDetected": true,
+    "damageDescription": "Missing JPEG EOI (FF D9); JPEG decoding failed: image file is truncated (19 bytes not processed)",
+    "recoveryRequired": true,
+    "recoveryStatus": "ATTEMPTED",
+    "recoveryMethod": "jpeg_eoi_repair",
+    "originalPreserved": true,
+    "originalSha256": "5428819d16c5e0cafe20e637ab2d86b4c914ee7698c362b010e03063bcc4cfbb",
+    "outputSha256": "75de92c89ab9d374ca21eddab12bab9a53f99c8460fac70078d44e4f64b69de0",
+    "originalUnchanged": false,
+    "signatureValid": true,
+    "decoderValid": false,
+    "parserValid": false,
+    "validation": "VALID",
+    "validationDetail": {
+      "signature": "PASS",
+      "decoder": "PASS",
+      "parser": "PASS",
+      "output": "VALID"
+    },
+    "restorationPerformed": false,
+    "restorationMethod": null,
+    "restorationCalled": false,
+    "fragmentCount": 0,
+    "reassemblyMethod": null,
+    "reassemblyConfidence": "N/A",
+    "fragmentIds": [],
+    "bytesPreserved": 4768,
+    "bytesReconstructed": 2,
+    "aiEstimatedBytes": "N/A",
+    "scores": {
+      "integrity_score": 50.0,
+      "recovery_confidence": 90.0,
+      "investigative_relevance": 50.0,
+      "overall_score": 63.33,
+      "factors": {
+        "integrity": [
+          {
+            "factor": "valid_file_signature",
+            "contribution": 25.0
+          },
+          {
+            "factor": "parser_success",
+            "contribution": 0.0
+          },
+          {
+            "factor": "decoder_success",
+            "contribution": 0.0
+          },
+          {
+            "factor": "percent_original_data_preserved",
+            "contribution": 25.0
+          }
+        ],
+        "recovery_confidence": [
+          {
+            "factor": "surviving_data",
+            "contribution": 35.0
+          },
+          {
+            "factor": "successful_reconstruction",
+            "contribution": 30.0
+          },
+          {
+            "factor": "validation_success",
+            "contribution": 25.0
+          },
+          {
+            "factor": "fragment_ordering_confidence",
+            "contribution": "N/A"
+          }
+        ],
+        "investigative_relevance": [
+          {
+            "factor": "file_type",
+            "contribution": 20.0
+          },
+          {
+            "factor": "metadata_availability",
+            "contribution": 5.0
+          },
+          {
+            "factor": "successful_recovery_or_intact",
+            "contribution": 25.0
+          },
+          {
+            "factor": "file_usability",
+            "contribution": 0.0
+          }
+        ]
+      }
+    },
+    "damageLocationPrecise": false,
+    "notes": [
+      "Appended missing EOI (FF D9) after surviving scan data.",
+      "Damage location could not be determined precisely.",
+      "Visual restoration skipped (no evidence-derived mask)."
+    ],
+    "corruptionIndicators": [
+      "Missing JPEG EOI (FF D9)",
+      "JPEG decoding failed: image file is truncated (19 bytes not processed)"
+    ],
+    "pipelineVersion": "1.0.0",
+    "caseId": "CASE-c1d3211784cb"
+  }
+}

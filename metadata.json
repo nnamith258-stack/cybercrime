@@ -1,0 +1,7 @@
+{
+  "name": "ReCoveryAI – Forensic Data Recovery Workbench",
+  "description": "AI-assisted intelligent data recovery and digital evidence reconstruction prototype for cybersecurity forensics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

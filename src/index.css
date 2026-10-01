@@ -1,0 +1,352 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: 'Chakra Petch', 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #030712;
+  color: #f8fafc;
+  overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Custom scrollbars for forensic data tables and hex viewers */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #090d16;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+.font-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ========================================================
+   LIGHT THEME ENHANCEMENTS & HIGH-CONTRAST PALETTE OVERRIDES
+   Activates when <html class="light"> is applied
+   ======================================================== */
+html.light {
+  color-scheme: light;
+}
+
+html.light body {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+/* Base Surfaces & Backgrounds in Light Theme */
+html.light .bg-slate-950,
+html.light .bg-slate-950\/95,
+html.light .bg-slate-950\/90,
+html.light .bg-slate-950\/85,
+html.light .bg-slate-950\/80,
+html.light .bg-slate-950\/70,
+html.light .bg-slate-950\/60 {
+  background-color: #f8fafc !important;
+}
+
+html.light .bg-slate-900,
+html.light .bg-slate-900\/95,
+html.light .bg-slate-900\/90,
+html.light .bg-slate-900\/80,
+html.light .bg-slate-900\/70,
+html.light .bg-slate-900\/60 {
+  background-color: #ffffff !important;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.06);
+}
+
+html.light .bg-slate-850,
+html.light .bg-slate-850\/50,
+html.light .bg-slate-850\/40 {
+  background-color: #f1f5f9 !important;
+}
+
+html.light .bg-slate-800,
+html.light .bg-slate-800\/80,
+html.light .bg-slate-800\/60 {
+  background-color: #e2e8f0 !important;
+}
+
+html.light .hover\:bg-slate-800:hover,
+html.light .hover\:bg-slate-700:hover,
+html.light .hover\:bg-slate-850:hover {
+  background-color: #cbd5e1 !important;
+}
+
+html.light .hover\:bg-slate-900\/60:hover,
+html.light .hover\:bg-slate-900:hover {
+  background-color: #f8fafc !important;
+}
+
+/* Borders */
+html.light .border-slate-800,
+html.light .border-slate-800\/80,
+html.light .border-slate-800\/60,
+html.light .border-slate-850,
+html.light .border-slate-900 {
+  border-color: #e2e8f0 !important;
+}
+
+html.light .border-slate-700 {
+  border-color: #cbd5e1 !important;
+}
+
+/* Text Hierarchy: High-contrast Dark Typography for Light Mode */
+html.light .text-slate-100 {
+  color: #0f172a !important;
+}
+
+html.light .text-slate-200 {
+  color: #1e293b !important;
+}
+
+html.light .text-slate-300 {
+  color: #334155 !important;
+}
+
+html.light .text-slate-400 {
+  color: #475569 !important;
+}
+
+html.light .text-slate-500 {
+  color: #64748b !important;
+}
+
+html.light .text-slate-600 {
+  color: #94a3b8 !important;
+}
+
+/* High-Contrast Color Palette for Light Mode */
+
+/* Yellow & Amber: Replaced with deep rich Amber-700/800 so hashes & warnings are visible */
+html.light .text-yellow-400,
+html.light .text-yellow-300,
+html.light .text-yellow-200 {
+  color: #b45309 !important;
+  font-weight: 600;
+}
+
+html.light .text-amber-400,
+html.light .text-amber-300,
+html.light .text-amber-200 {
+  color: #b45309 !important;
+  font-weight: 600;
+}
+
+html.light .bg-amber-950,
+html.light .bg-amber-950\/80,
+html.light .bg-amber-950\/50,
+html.light .bg-amber-950\/40 {
+  background-color: #fef3c7 !important;
+}
+
+html.light .border-amber-800,
+html.light .border-amber-800\/60 {
+  border-color: #fcd34d !important;
+}
+
+/* Forensic Cyan Theme Tokens */
+html.light .bg-cyan-950,
+html.light .bg-cyan-950\/80,
+html.light .bg-cyan-950\/70,
+html.light .bg-cyan-950\/50,
+html.light .bg-cyan-950\/40 {
+  background-color: #ecfeff !important;
+}
+
+html.light .border-cyan-800,
+html.light .border-cyan-800\/80,
+html.light .border-cyan-900,
+html.light .border-cyan-900\/40,
+html.light .border-cyan-500\/40,
+html.light .border-cyan-500\/30 {
+  border-color: #67e8f9 !important;
+}
+
+html.light .text-cyan-300,
+html.light .text-cyan-400 {
+  color: #0369a1 !important;
+  font-weight: 600;
+}
+
+/* Emerald Tokens */
+html.light .bg-emerald-950,
+html.light .bg-emerald-950\/80,
+html.light .bg-emerald-950\/70,
+html.light .bg-emerald-950\/50,
+html.light .bg-emerald-950\/40 {
+  background-color: #ecfdf5 !important;
+}
+
+html.light .border-emerald-800,
+html.light .border-emerald-500\/50,
+html.light .border-emerald-500\/40 {
+  border-color: #6ee7b7 !important;
+}
+
+html.light .text-emerald-300,
+html.light .text-emerald-400 {
+  color: #047857 !important;
+  font-weight: 600;
+}
+
+/* Rose / Red Critical Tokens */
+html.light .bg-rose-950,
+html.light .bg-rose-950\/80,
+html.light .bg-red-950,
+html.light .bg-red-950\/80,
+html.light .bg-red-950\/70 {
+  background-color: #fee2e2 !important;
+}
+
+html.light .border-rose-800,
+html.light .border-red-800,
+html.light .border-red-700\/80 {
+  border-color: #fca5a5 !important;
+}
+
+html.light .text-rose-400,
+html.light .text-red-400,
+html.light .text-red-300 {
+  color: #b91c1c !important;
+  font-weight: 600;
+}
+
+/* Purple Tokens */
+html.light .bg-purple-950,
+html.light .bg-purple-950\/80,
+html.light .bg-purple-950\/70,
+html.light .bg-purple-950\/60,
+html.light .bg-purple-950\/40 {
+  background-color: #f3e8ff !important;
+}
+
+html.light .border-purple-800,
+html.light .border-purple-800\/80,
+html.light .border-purple-800\/60,
+html.light .border-purple-600 {
+  border-color: #d8b4fe !important;
+}
+
+html.light .text-purple-300,
+html.light .text-purple-400 {
+  color: #6b21a8 !important;
+  font-weight: 600;
+}
+
+/* Header & Banner Gradients in Light Mode */
+html.light .from-slate-900 {
+  --tw-gradient-from: #ffffff !important;
+}
+html.light .via-slate-900\/90 {
+  --tw-gradient-via: #f8fafc !important;
+}
+html.light .to-slate-950 {
+  --tw-gradient-to: #f1f5f9 !important;
+}
+
+html.light .from-emerald-950\/70 {
+  --tw-gradient-from: #ecfdf5 !important;
+}
+
+html.light .from-purple-950\/70,
+html.light .from-purple-950\/60 {
+  --tw-gradient-from: #f3e8ff !important;
+}
+
+/* Inputs & Form Fields in Light Mode */
+html.light input,
+html.light select,
+html.light textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light input:focus,
+html.light select:focus,
+html.light textarea:focus {
+  border-color: #0284c7 !important;
+  outline: 2px solid #bae6fd !important;
+}
+
+/* Scrollbars in Light Mode */
+html.light ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Code & Monospace in Light Mode */
+html.light code,
+html.light pre {
+  color: #0f172a;
+}
+
+/* SVG Graphics & Evidence Graph View in Light Mode */
+html.light svg text[fill="#f8fafc"],
+html.light svg text[fill="#f1f5f9"] {
+  fill: #0f172a !important;
+}
+html.light svg rect[fill="#030712"],
+html.light svg rect[fill="#0f172a"] {
+  fill: #ffffff !important;
+  stroke: #cbd5e1 !important;
+}
+html.light svg circle[fill="#0f172a"],
+html.light svg circle[fill="#030712"] {
+  fill: #f1f5f9 !important;
+}
+
+/* Hardcoded dark surfaces in canvas & comparison frames in Light Mode */
+html.light .bg-\[\#090d16\],
+html.light .bg-\[\#030712\] {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* Keep the imported ReCoveryAI page typography independent from the app theme. */
+.recoveryai-landing .font-sans {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.recoveryai-landing .font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.recoveryai-contact-overlay {
+  animation: recoveryai-fade-in 180ms ease-out both;
+}
+
+@keyframes recoveryai-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .recoveryai-landing *,
+  .recoveryai-landing *::before,
+  .recoveryai-landing *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

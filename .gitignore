@@ -1,0 +1,14 @@
+node_modules/
+build/
+dist/
+coverage/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+backend_fastapi/.venv/
+backend_fastapi/venv/
+venv/
+.DS_Store
+*.log
+.env*
+!.env.example

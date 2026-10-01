@@ -1,0 +1,177 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Authenticated forensic investigator profile and credentials",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "User UID from Firebase Authentication",
+          "maxLength": 128
+        },
+        "email": {
+          "type": "string",
+          "description": "Investigator email address",
+          "maxLength": 256
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Investigator name or callsign",
+          "maxLength": 128
+        },
+        "role": {
+          "type": "string",
+          "description": "User role: analyst or guest",
+          "enum": ["analyst", "guest", "admin"]
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp"
+        }
+      },
+      "required": ["id", "email", "role"]
+    },
+    "EvidenceCase": {
+      "title": "EvidenceCase",
+      "description": "Persisted forensic evidence case uploaded by authenticated investigator",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique Case ID",
+          "maxLength": 128
+        },
+        "userId": {
+          "type": "string",
+          "description": "UID of the investigator who owns this case",
+          "maxLength": 128
+        },
+        "caseName": {
+          "type": "string",
+          "description": "Case title or identifier",
+          "maxLength": 128
+        },
+        "datasetName": {
+          "type": "string",
+          "description": "Original evidence file name",
+          "maxLength": 256
+        },
+        "evidenceSha256": {
+          "type": "string",
+          "description": "SHA-256 hash of original bitstream",
+          "maxLength": 64
+        },
+        "datasetSizeBytes": {
+          "type": "number",
+          "description": "Total size in bytes"
+        },
+        "totalFragments": {
+          "type": "number",
+          "description": "Count of fragmented sectors"
+        },
+        "identifiedFragments": {
+          "type": "number",
+          "description": "Count of identified valid sectors"
+        },
+        "reconstructedFilesCount": {
+          "type": "number",
+          "description": "Count of reconstructed files"
+        },
+        "reconstructedFiles": {
+          "type": "array",
+          "description": "List of recovered file artifacts metadata summary"
+        },
+        "fragments": {
+          "type": "array",
+          "description": "List of identified fragment sectors"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when case was registered"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp of last analysis"
+        }
+      },
+      "required": ["id", "userId", "caseName", "evidenceSha256"]
+    },
+    "RestorationArtifact": {
+      "title": "RestorationArtifact",
+      "description": "Saved AI or classical image restoration artifact for an evidence case",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Artifact identifier",
+          "maxLength": 128
+        },
+        "caseId": {
+          "type": "string",
+          "description": "Parent case identifier",
+          "maxLength": 128
+        },
+        "userId": {
+          "type": "string",
+          "description": "Owner UID",
+          "maxLength": 128
+        },
+        "method": {
+          "type": "string",
+          "description": "Restoration pipeline method",
+          "maxLength": 64
+        },
+        "originalEvidenceSha256": {
+          "type": "string",
+          "description": "Original input SHA-256",
+          "maxLength": 64
+        },
+        "outputSha256": {
+          "type": "string",
+          "description": "Output preview SHA-256",
+          "maxLength": 64
+        },
+        "maskCoveragePercent": {
+          "type": "number",
+          "description": "Damage coverage percentage"
+        },
+        "forensicConfidence": {
+          "type": "number",
+          "description": "Forensic reconstruction confidence percentage"
+        },
+        "visualQualityScore": {
+          "type": "number",
+          "description": "Visual restoration quality score"
+        },
+        "previewDataUrl": {
+          "type": "string",
+          "description": "Restored preview image data"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp of restoration run"
+        }
+      },
+      "required": ["id", "caseId", "userId", "method", "originalEvidenceSha256", "outputSha256"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Investigator profile data"
+    },
+    "/cases/{caseId}": {
+      "schema": "EvidenceCase",
+      "description": "Uploaded evidence case records"
+    },
+    "/cases/{caseId}/restorations/{restorationId}": {
+      "schema": "RestorationArtifact",
+      "description": "Restored image artifacts for an evidence case"
+    }
+  }
+}
